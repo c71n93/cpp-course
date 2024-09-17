@@ -1,0 +1,8 @@
+threshold: 10
+errors:
+  - c71n93
+alerts:
+  github:
+    - c71n93
+tags:
+  - pdd

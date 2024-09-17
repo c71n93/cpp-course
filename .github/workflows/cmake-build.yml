@@ -1,0 +1,31 @@
+name: CMake build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_TYPE: DEBUG
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # todo: it looks bad. need to fix it somehow.
+    strategy:
+      matrix:
+        test-path:
+          - '/week-W/task-W-T/test'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Test
+        working-directory: ${{github.workspace}}/build
+        run:  ctest --test-dir ${{github.workspace}}/build/${{matrix.path}} --output-on-failure

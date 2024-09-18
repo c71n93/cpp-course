@@ -25,7 +25,10 @@ function(cpp_test SOURCE_NAME)
     gtest_discover_tests(${TARGET_NAME})
 endfunction(cpp_test)
 
-add_subdirectory(week-W)
+set(DIRS week-W week-2)
+foreach(DIR ${DIRS})
+    add_subdirectory(${DIR})
+endforeach()
 
 file(GLOB_RECURSE
         ALL_CXX_SOURCE_FILES

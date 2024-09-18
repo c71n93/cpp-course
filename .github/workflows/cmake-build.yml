@@ -17,6 +17,7 @@ jobs:
       matrix:
         test-path:
           - '/week-W/task-W-T/test'
+          - '/week-2/task-02-05/test'
     steps:
       - uses: actions/checkout@v3
 

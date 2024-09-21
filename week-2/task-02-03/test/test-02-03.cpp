@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "prime_numbers.hpp"
+#include "prime-nums.hpp"
 
 TEST(prime_factors, prime_factors_naive_test_1) {
     uint64_t num = 1;

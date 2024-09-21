@@ -1,9 +1,3 @@
-#include <iostream>
-
-#define foo() main()
-
-int foo() { std::cout << "Hi" << std::endl; }
-
-#define main() bar()
+#include "main1.hpp"
 
 int main() {}  // NOLINT

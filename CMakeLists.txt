@@ -11,6 +11,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 enable_testing()
 
+add_custom_target(all-tests)
+
 function(cpp_test SOURCE_NAME)
     get_filename_component(TARGET_NAME ${SOURCE_NAME} NAME_WE)
     add_executable(
@@ -23,6 +25,10 @@ function(cpp_test SOURCE_NAME)
     )
     include(GoogleTest)
     gtest_discover_tests(${TARGET_NAME})
+    add_custom_target(${TARGET_NAME}-run
+        COMMAND ./${TARGET_NAME}
+    )
+    add_dependencies(all-tests ${TARGET_NAME}-run)
 endfunction(cpp_test)
 
 add_subdirectory(week-W)

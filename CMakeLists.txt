@@ -31,6 +31,14 @@ function(cpp_test SOURCE_NAME)
     add_dependencies(all-tests ${TARGET_NAME}-run)
 endfunction(cpp_test)
 
+function(clang_tidy EXECUTABLE)
+    if (NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU") # problem with clang-tidy https://discourse.cmake.org/t/clang-tidy-g-c-standard-command-line-parameter-incompatibilites/8526
+        find_program(CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
+        set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}")
+        set_target_properties(${EXECUTABLE} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+    endif ()
+endfunction(clang_tidy)
+
 add_subdirectory(week-W)
 
 file(GLOB_RECURSE

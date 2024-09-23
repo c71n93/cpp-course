@@ -15,23 +15,6 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 
-##### clang-format target #####
-file(GLOB_RECURSE
-        ALL_CXX_SOURCE_FILES
-        *.[chi]pp *.[chi]xx *.cc *.hh *.ii *.[CHI]
-)
-find_program(CLANG_FORMAT "clang-format")
-if(CLANG_FORMAT)
-    add_custom_target(
-            clang-format
-            COMMAND ${CLANG_FORMAT}
-            -i
-            -style=file
-            ${ALL_CXX_SOURCE_FILES}
-    )
-endif()
-
-
 ##### clang-tidy #####
 function(clang_tidy EXECUTABLE)
     if (NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU") # problem with clang-tidy https://discourse.cmake.org/t/clang-tidy-g-c-standard-command-line-parameter-incompatibilites/8526
@@ -65,7 +48,24 @@ endfunction(cpp_test)
 
 
 ##### subdirectories #####
-set(DIRS week-W)
+set(DIRS week-W week-3)
 foreach(DIR ${DIRS})
     add_subdirectory(${DIR})
 endforeach()
+
+
+##### clang-format target #####
+file(GLOB_RECURSE
+        ALL_CXX_SOURCE_FILES
+        *.[chi]pp *.[chi]xx *.cc *.hh *.ii *.[CHI]
+)
+find_program(CLANG_FORMAT "clang-format")
+if(CLANG_FORMAT)
+    add_custom_target(
+            clang-format
+            COMMAND ${CLANG_FORMAT}
+            -i
+            -style=file
+            ${ALL_CXX_SOURCE_FILES}
+    )
+endif()

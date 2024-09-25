@@ -41,7 +41,7 @@ function(cpp_test SOURCE_NAME)
     include(GoogleTest)
     gtest_discover_tests(${TARGET_NAME})
     add_custom_target(${TARGET_NAME}-run
-        COMMAND ./${TARGET_NAME}
+            COMMAND ./${TARGET_NAME}
     )
     add_dependencies(all-tests ${TARGET_NAME}-run)
 endfunction(cpp_test)

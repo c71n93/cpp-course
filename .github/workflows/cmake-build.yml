@@ -12,13 +12,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # todo: it looks bad. need to fix it somehow.
-    strategy:
-      matrix:
-        test-path:
-          - '/week-W/task-W-T/test'
-          - '/week-2/task-02-05/test'
-          - '/week-2/task-02-03/test'
     steps:
       - uses: actions/checkout@v3
 
@@ -30,4 +23,4 @@ jobs:
 
       - name: Test
         working-directory: ${{github.workspace}}/build
-        run:  ctest --test-dir ${{github.workspace}}/build/${{matrix.path}} --output-on-failure
+        run:  cmake --build ${{github.workspace}}/build/${{matrix.path}} --target all-tests

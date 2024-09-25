@@ -48,7 +48,7 @@ endfunction(cpp_test)
 
 
 ##### subdirectories #####
-set(DIRS week-W)
+set(DIRS week-W week-2)
 foreach(DIR ${DIRS})
     add_subdirectory(${DIR})
 endforeach()

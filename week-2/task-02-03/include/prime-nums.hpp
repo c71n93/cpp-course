@@ -21,7 +21,7 @@ std::vector<uint64_t> prime_factors_naive(uint64_t num) {
 
 std::vector<uint64_t> prime_factors(uint64_t num) {
     std::vector<uint64_t> res{};
-    uint64_t sqrt = static_cast<uint64_t>(std::sqrt(num)) + 1;
+    const uint64_t sqrt = static_cast<uint64_t>(std::sqrt(num)) + 1;
     uint64_t divider = 2;
     while (divider < sqrt && num > 1) {
         if (num % divider == 0) {

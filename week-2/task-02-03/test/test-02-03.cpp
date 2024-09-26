@@ -2,26 +2,27 @@
 
 #include "prime-nums.hpp"
 
-TEST(prime_factors, prime_factors_naive_test_1) {
-    uint64_t num = 1;
-    std::vector<uint64_t> res{};
+TEST(PrimeFactors, PrimeFactorsNaiveTest1) {
+    const uint64_t num = 1;
+    const std::vector<uint64_t> res{};
     EXPECT_EQ(res, math::prime_factors_naive(num));
 }
 
-TEST(prime_factors, prime_factors_test_naive_medium) {
-    uint64_t num = 21;
-    std::vector<uint64_t> res{3, 7};
+TEST(PrimeFactors, PrimeFactorsNaiveTestMedium) {
+    const uint64_t num = 21;
+    const std::vector<uint64_t> res{3, 7};
     EXPECT_EQ(res, math::prime_factors_naive(num));
 }
 
-TEST(prime_factors, prime_factors_naive_test_big) {
-    uint64_t num = 364;
-    std::vector<uint64_t> res{2, 2, 7, 13};
+TEST(PrimeFactors, PrimeFactorsNaiveTestBig) {
+    const uint64_t num = 364;
+    const std::vector<uint64_t> res{2, 2, 7, 13};
     EXPECT_EQ(res, math::prime_factors_naive(num));
 }
 
-TEST(prime_factors, prime_factors_tests) {
-    for (uint64_t i = 0; i < 100000; i++) {
+TEST(PrimeFactors, PrimeFactorsTest) {
+    const uint64_t iters = 100000;
+    for (uint64_t i = 0; i < iters; i++) {
         EXPECT_EQ(math::prime_factors_naive(i), math::prime_factors(i));
     }
 }

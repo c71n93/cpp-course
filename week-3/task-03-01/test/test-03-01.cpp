@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "rectangle.hpp"
+#include "rectangular_intersection.hpp"
 
 using geometry2d::Rectangle;
 

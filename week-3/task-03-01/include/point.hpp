@@ -6,7 +6,7 @@ struct Point final {
     int64_t x;
     int64_t y;
 
-    bool operator<=>(const Point&) const = default;
+    bool operator==(const Point&) const = default;
 };
 
 std::ostream& operator<<(std::ostream& os, const Point& p) {

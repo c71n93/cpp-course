@@ -19,8 +19,6 @@ public:
     }
     virtual ~Rectangle() {}
 
-    bool operator<=>(const Rectangle& rhs) const = default;
-
     size_t square() const { return height() * width(); }
 
     Rectangle intersection(Rectangle rhs) const {
@@ -48,6 +46,12 @@ private:
     Point bottom_left_{0, 0};
     Point top_right_{0, 0};
 };
+
+template <Rectangular T>
+bool operator==(const T& rhs, const T& lhs) {
+    return rhs.height() == lhs.height() && rhs.width() == lhs.width() &&
+           rhs.bottom_left() == lhs.bottom_left();
+}
 
 std::ostream& operator<<(std::ostream& os, const Rectangle& r) {
     os << "bottom left: " << r.bottom_left() << "\n";

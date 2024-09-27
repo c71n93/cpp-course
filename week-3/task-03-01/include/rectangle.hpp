@@ -1,6 +1,7 @@
 #pragma once
 
 #include "point.hpp"
+#include "ranges"
 
 namespace geometry2d {
 
@@ -28,18 +29,21 @@ public:
     const Point& bottom_left() const { return bottom_left_; }
     bool is_empty() const { return is_empty_; }
 
-    static Rectangle intersection(const std::vector<Rectangle>& vec) {
-        if (vec.empty()) {
+    template <typename RectangleRange>
+        requires std::ranges::input_range<RectangleRange> &&
+                 std::same_as<std::ranges::range_value_t<RectangleRange>, Rectangle>
+    static Rectangle intersection(RectangleRange&& range) {
+        if (std::ranges::empty(range)) {
             return Rectangle();
         }
         Point bottom_left = Point::bottom_left_most();
         Point top_right = Point::top_right_most();
-        for (auto&& rect : vec) {
+        std::ranges::for_each(range, [&bottom_left, &top_right](const auto& rect) {
             bottom_left = Point{std::max(bottom_left.x, rect.bottom_left_.x),
                                 std::max(bottom_left.y, rect.bottom_left_.y)};
             top_right = Point{std::min(top_right.x, rect.top_right_.x),
                               std::min(top_right.y, rect.top_right_.y)};
-        }
+        });
         return is_valid(bottom_left, top_right) ? Rectangle(bottom_left, top_right) : Rectangle();
     }
 

@@ -6,6 +6,13 @@ struct Point final {
     int64_t x;
     int64_t y;
 
+    static Point bottom_left_most() {
+        return Point{std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::min()};
+    }
+    static Point top_right_most() {
+        return Point{std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::max()};
+    }
+
     bool operator==(const Point&) const = default;
 };
 

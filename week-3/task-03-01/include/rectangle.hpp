@@ -32,7 +32,7 @@ public:
     template <typename RectangleRange>
         requires std::ranges::input_range<RectangleRange> &&
                  std::same_as<std::ranges::range_value_t<RectangleRange>, Rectangle>
-    static Rectangle intersection(RectangleRange&& range) {
+    static Rectangle intersection(const RectangleRange& range) {
         if (std::ranges::empty(range)) {
             return Rectangle();
         }

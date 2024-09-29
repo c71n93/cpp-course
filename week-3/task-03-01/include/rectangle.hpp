@@ -1,7 +1,9 @@
 #pragma once
 
+#include <algorithm>
+#include <ranges>
+
 #include "point.hpp"
-#include "ranges"
 
 namespace geometry2d {
 

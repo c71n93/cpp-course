@@ -19,9 +19,9 @@ enable_testing()
 ##### clang-tidy #####
 function(clang_tidy EXECUTABLE)
 # possible problems with clang-tidy in CI https://discourse.cmake.org/t/clang-tidy-g-c-standard-command-line-parameter-incompatibilites/8526
-        find_program(CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
-        set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}")
-        set_target_properties(${EXECUTABLE} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+    find_program(CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
+    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}")
+    set_target_properties(${EXECUTABLE} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 endfunction(clang_tidy)
 
 

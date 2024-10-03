@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-TEST(dummy, dummy_test_success) {
+TEST(Dummy, DummyTestSuccess) {
     std::cout << "Hello" << std::endl;
     EXPECT_TRUE(true);
 }

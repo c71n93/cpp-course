@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 #include "polygon.hpp"
 
 class Triangle : public Polygon {

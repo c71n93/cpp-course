@@ -4,13 +4,13 @@
 
 using geometry2d::Rectangle;
 
-TEST(RectangleSquare, Empty) { EXPECT_EQ(Rectangle().square(), 0); }
+TEST(RectangleSquare, Empty) { EXPECT_EQ(Rectangle().area(), 0); }
 
-TEST(RectangleSquare, Point) { EXPECT_EQ(Rectangle({1, 2}, 0, 0).square(), 0); }
+TEST(RectangleSquare, Point) { EXPECT_EQ(Rectangle({1, 2}, 0, 0).area(), 0); }
 
-TEST(RectangleSquare, Line) { EXPECT_EQ(Rectangle({1, 2}, 0, 5).square(), 0); }
+TEST(RectangleSquare, Line) { EXPECT_EQ(Rectangle({1, 2}, 0, 5).area(), 0); }
 
-TEST(RectangleSquare, Rectangle) { EXPECT_EQ(Rectangle({-1, 2}, 12, 5).square(), 60); }
+TEST(RectangleSquare, Rectangle) { EXPECT_EQ(Rectangle({-1, 2}, 12, 5).area(), 60); }
 
 TEST(TwoRectanglesIntersections, PointOutside) {
     const std::vector<Rectangle> vec{Rectangle({0, 0}, 4, 4), Rectangle({0, 0}, 0, 0)};
@@ -79,7 +79,7 @@ TEST(RectanglesIntersectionSquare, RectangleIntersection) {
                                      Rectangle({-9, -9}, 3, 2)};
     const Rectangle result = Rectangle::intersection(vec);
     EXPECT_EQ(result, Rectangle({-8, -8}, 2, 1));
-    EXPECT_EQ(result.square(), 2);
+    EXPECT_EQ(result.area(), 2);
 }
 
 TEST(RectanglesIntersectionSquare, RectangleEmptyIntersection) {
@@ -87,5 +87,5 @@ TEST(RectanglesIntersectionSquare, RectangleEmptyIntersection) {
                                      Rectangle({-5, -5}, 3, 2)};
     const Rectangle result = Rectangle::intersection(vec);
     EXPECT_EQ(result, Rectangle());
-    EXPECT_EQ(result.square(), 0);
+    EXPECT_EQ(result.area(), 0);
 }

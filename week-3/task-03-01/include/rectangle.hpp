@@ -25,7 +25,7 @@ public:
 
     bool operator==(const Rectangle& rhs) const = default;
 
-    size_t square() const { return height() * width(); }
+    size_t area() const { return height() * width(); }
     size_t height() const { return top_right_.y - bottom_left_.y; }
     size_t width() const { return top_right_.x - bottom_left_.x; }
     const Point& bottom_left() const { return bottom_left_; }

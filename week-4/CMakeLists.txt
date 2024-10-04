@@ -1,4 +1,4 @@
-set(DIRS task-03-03)
+set(DIRS task-03-03 task-03-04)
 foreach(DIR ${DIRS})
     add_subdirectory(${DIR})
 endforeach()

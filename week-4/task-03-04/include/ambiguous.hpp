@@ -1,5 +1,7 @@
 #pragma once
 
+namespace ambiguous {
+
 class Base1 {
 public:
     virtual ~Base1() = default;
@@ -16,17 +18,24 @@ public:
 
 class ProxyBase1 : public Base1 {
 public:
+    ProxyBase1() {}
+
     int foo() override { return foo1(); }
+
     virtual int foo1() = 0;
 };
 
 class ProxyBase2 : public Base2 {
 public:
     int foo() override { return foo2(); }
+
     virtual int foo2() = 0;
 };
 
 class Derived : public ProxyBase1, public ProxyBase2 {
     int foo1() override { return Base1::foo() * 2; }
+
     int foo2() override { return Base2::foo() * 3; }
 };
+
+}  // namespace ambiguous

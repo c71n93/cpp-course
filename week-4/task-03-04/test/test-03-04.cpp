@@ -2,6 +2,8 @@
 
 #include "ambiguous.hpp"
 
+using ambiguous::Derived, ambiguous::Base1, ambiguous::Base2;
+
 TEST(Ambiguous, AmbiguousTest) {
     Derived d{};
     Base1& b1 = d;

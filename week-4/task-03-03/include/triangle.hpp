@@ -13,7 +13,7 @@ public:
         return std::sqrt(sp * (sp - a_) * (sp - b_) * (sp - c_));
     }
     double perimeter() const override { return a_ + b_ + c_; }
-    size_t num_of_sides() const override { return 3; }
+    size_t num_of_sides() const final { return 3; }
 
     double a() const { return a_; }
     double b() const { return b_; }

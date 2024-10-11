@@ -8,7 +8,7 @@ public:
 
     double area() const override { return height_ * width_; }
     double perimeter() const override { return height_ * 2 + width_ * 2; }
-    size_t num_of_sides() const override { return 4; }
+    size_t num_of_sides() const final { return 4; }
 
     double height() const { return height_; }
     double width() const { return width_; }

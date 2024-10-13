@@ -1,6 +1,8 @@
 #include "container.hpp"
 #include "gtest/gtest.h"
 
+using container::Container;
+
 TEST(ContainerTest, ConstructsWithSize) {
     const size_t size = 23;
     const Container<int> cont(size);
@@ -47,7 +49,7 @@ TEST(ContainerTest, MoveConstructor) {
     for (size_t i = 0; i < size; ++i) {
         EXPECT_EQ(cont2[i], move_value);
     }
-    EXPECT_EQ(cont1.size(), 0);  // cont1 should be empty after move
+    EXPECT_EQ(cont1.size(), 0);  // NOLINT
 }
 
 TEST(ContainerTest, AssignmentOperator) {
@@ -76,7 +78,7 @@ TEST(ContainerTest, MoveAssignmentOperator) {
     for (size_t i = 0; i < size2; ++i) {
         EXPECT_EQ(cont1[i], value2);
     }
-    EXPECT_EQ(cont2.size(), 0);  // cont2 should be empty after move
+    EXPECT_EQ(cont2.size(), 0);  // NOLINT
 }
 
 TEST(ContainerTest, FrontAndBack) {

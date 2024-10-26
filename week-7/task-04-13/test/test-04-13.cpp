@@ -6,7 +6,7 @@ using decay::Decay_t;
 template <typename T, typename U>
 constexpr bool is_decay_equ = std::is_same_v<Decay_t<T>, U>;
 
-TEST(ConstManipulationTest, AddConstTest) {
+TEST(DecayTest, DecayTest) {
     static_assert(is_decay_equ<int, int>);
     static_assert(!is_decay_equ<int, float>);
     static_assert(is_decay_equ<int&, int>);

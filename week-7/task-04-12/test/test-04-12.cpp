@@ -11,32 +11,27 @@ struct Test {
 };
 
 TEST(ConstManipulationTest, AddConstTest) {
-    static_assert(std::is_same<AddConst_t<int>, std::add_const<int>::type>::value);
-    static_assert(std::is_same<AddConst_t<const int>, std::add_const<const int>::type>::value);
-    static_assert(std::is_same<AddConst_t<int&>, std::add_const<int&>::type>::value);  // int&, int&
-    static_assert(std::is_same<AddConst_t<const int&>, std::add_const<const int&>::type>::value);
+    static_assert(std::is_same_v<AddConst_t<int>, std::add_const_t<int>>);
+    static_assert(std::is_same_v<AddConst_t<const int>, std::add_const_t<const int>>);
+    static_assert(std::is_same_v<AddConst_t<int&>, std::add_const_t<int&>>);  // int&, int&
+    static_assert(std::is_same_v<AddConst_t<const int&>, std::add_const_t<const int&>>);
 
-    static_assert(std::is_same<AddConst_t<Test>, std::add_const<Test>::type>::value);
-    static_assert(std::is_same<AddConst_t<const Test>, std::add_const<const Test>::type>::value);
-    static_assert(
-        std::is_same<AddConst_t<Test&>, std::add_const<Test&>::type>::value);  // Test&, Test&
-    static_assert(std::is_same<AddConst_t<const Test&>, std::add_const<const Test&>::type>::value);
+    static_assert(std::is_same_v<AddConst_t<Test>, std::add_const_t<Test>>);
+    static_assert(std::is_same_v<AddConst_t<const Test>, std::add_const_t<const Test>>);
+    static_assert(std::is_same_v<AddConst_t<Test&>, std::add_const_t<Test&>>);  // Test&, Test&
+    static_assert(std::is_same_v<AddConst_t<const Test&>, std::add_const_t<const Test&>>);
 }
 
 TEST(ConstManipulationTest, RemoveConstTest) {
-    static_assert(std::is_same<RemoveConst_t<int>, std::remove_const<int>::type>::value);
-    static_assert(
-        std::is_same<RemoveConst_t<const int>, std::remove_const<const int>::type>::value);
-    static_assert(std::is_same<RemoveConst_t<int&>, std::remove_const<int&>::type>::value);
-    static_assert(
-        std::is_same<RemoveConst_t<const int&>,
-                     std::remove_const<const int&>::type>::value);  // const int&, const int&
+    static_assert(std::is_same_v<RemoveConst_t<int>, std::remove_const_t<int>>);
+    static_assert(std::is_same_v<RemoveConst_t<const int>, std::remove_const_t<const int>>);
+    static_assert(std::is_same_v<RemoveConst_t<int&>, std::remove_const_t<int&>>);
+    static_assert(std::is_same_v<RemoveConst_t<const int&>,
+                                 std::remove_const_t<const int&>>);  // const int&, const int&
 
-    static_assert(std::is_same<RemoveConst_t<Test>, std::remove_const<Test>::type>::value);
-    static_assert(
-        std::is_same<RemoveConst_t<const Test>, std::remove_const<const Test>::type>::value);
-    static_assert(std::is_same<RemoveConst_t<Test&>, std::remove_const<Test&>::type>::value);
-    static_assert(
-        std::is_same<RemoveConst_t<const Test&>,
-                     std::remove_const<const Test&>::type>::value);  // const Test&, const Test&
+    static_assert(std::is_same_v<RemoveConst_t<Test>, std::remove_const_t<Test>>);
+    static_assert(std::is_same_v<RemoveConst_t<const Test>, std::remove_const_t<const Test>>);
+    static_assert(std::is_same_v<RemoveConst_t<Test&>, std::remove_const_t<Test&>>);
+    static_assert(std::is_same_v<RemoveConst_t<const Test&>,
+                                 std::remove_const_t<const Test&>>);  // const Test&, const Test&
 }

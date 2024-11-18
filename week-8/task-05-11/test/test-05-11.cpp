@@ -118,3 +118,14 @@ TEST(EleganceTest, TrimmedCapitalizedTextFromFileText) {
     EXPECT_EQ(result, "HELLO, WORLD!");
     fs::remove(temp_file);
 }
+
+TEST(EleganceTest, DecoratorOfAbstractText) {
+    const std::string content = "     \n\t   Hello, world! \t      \n    ";
+    const fs::path temp_file = create_temp_file(content);
+    std::unique_ptr<Text> txt1 = std::make_unique<TextFromFile>(temp_file);
+    std::unique_ptr<Text> txt2 = std::make_unique<CapitalizedText>(std::move(txt1));
+    const Text& text = TrimmedText{std::move(txt2)};
+    const std::string result = text.content();
+    EXPECT_EQ(result, "HELLO, WORLD!");
+    fs::remove(temp_file);
+}

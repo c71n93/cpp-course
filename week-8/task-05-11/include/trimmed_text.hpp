@@ -19,7 +19,7 @@ public:
     template <typename T>
         requires std::derived_from<T, Text>
     explicit TrimmedText(T&& text) : TrimmedText(std::make_unique<T>(std::forward<T>(text))) {}
-    explicit TrimmedText(std::unique_ptr<Text> text) : origin_(std::move(text)) {}
+    explicit TrimmedText(std::unique_ptr<Text>&& text) : origin_(std::move(text)) {}
 
     std::string content() const override {
         std::string content = origin_->content();

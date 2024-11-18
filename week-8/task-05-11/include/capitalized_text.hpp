@@ -19,7 +19,7 @@ public:
         requires std::derived_from<T, Text>
     explicit CapitalizedText(T&& text)
         : CapitalizedText(std::make_unique<T>(std::forward<T>(text))) {}
-    explicit CapitalizedText(std::unique_ptr<Text> text) : origin_(std::move(text)) {}
+    explicit CapitalizedText(std::unique_ptr<Text>&& text) : origin_(std::move(text)) {}
 
     std::string content() const override {
         std::string text = origin_->content();

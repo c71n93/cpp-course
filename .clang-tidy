@@ -3,7 +3,8 @@ Checks:     '
     readability*,
     google*,
     misc-const-correctness,
-    -readability-identifier-length
+    -readability-identifier-length,
+    -readability-else-after-return
             '
 CheckOptions:
   - key: readability-identifier-naming.NamespaceCase

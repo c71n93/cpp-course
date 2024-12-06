@@ -11,14 +11,14 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    # todo: it looks bad. need to fix it somehow.
     strategy:
       matrix:
-        test-path:
-          - '/week-W/task-W-T/test'
+        cxx: [ g++-14, clang++-18 ]
+    env:
+      CXX: ${{ matrix.cxx }}
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -28,4 +28,4 @@ jobs:
 
       - name: Test
         working-directory: ${{github.workspace}}/build
-        run:  ctest --test-dir ${{github.workspace}}/build/${{matrix.path}} --output-on-failure
+        run:  cmake --build ${{github.workspace}}/build/${{matrix.path}} --target all-tests

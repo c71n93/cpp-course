@@ -14,7 +14,7 @@ using namespace std::literals;
 
 export class Entity {
 public:
-    Entity() : data_1_(s_data_1_), data_2_(0), data_3_(0) {}
+    Entity() : data_1_(s_data_1), data_2_(0), data_3_(0) {}
     Entity(const int& data_1, int data_2, int data_3)
         : data_1_(data_1), data_2_(data_2), data_3_(data_3) {}
     Entity(const int& data_1, int data_2) : Entity(data_1, data_2, 0) {}
@@ -48,7 +48,7 @@ public:
     //  ------------------------------------
 
     static void test() {
-        std::clog << "Entity::test : s_data_1 = " << s_data_1_ << '\n';
+        std::clog << "Entity::test : s_data_1 = " << s_data_1 << '\n';
     }
 
 private:
@@ -65,7 +65,7 @@ private:
 
     //  -----------------------------------------------
 
-    static inline auto s_data_1_ = 0;
+    static inline auto s_data_1 = 0;
     static const auto S_DATA_2 = 0;
     static inline const auto S_DATA_4 = "aaaaa"s;
 

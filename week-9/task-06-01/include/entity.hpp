@@ -32,7 +32,7 @@ private:
         bool is_invalid = true;
     };
 
-    static inline auto s_data_1_ = 0;
+    static inline auto s_data_1 = 0;
     static const int S_DATA_2;
     static inline const auto S_DATA_4 = "aaaaa"s;
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.30)
 project(cpp-course)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -19,9 +19,11 @@ enable_testing()
 ##### clang-tidy #####
 function(clang_tidy EXECUTABLE)
 # possible problems with clang-tidy in CI https://discourse.cmake.org/t/clang-tidy-g-c-standard-command-line-parameter-incompatibilites/8526
-    find_program(CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
-    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}")
-    set_target_properties(${EXECUTABLE} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang") # clang-tidy incompatible with gcc and cmake 3.30 (due to '-fmodules-ts' flag)
+        find_program(CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
+        set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}")
+        set_target_properties(${EXECUTABLE} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+    endif ()
 endfunction(clang_tidy)
 
 
@@ -46,9 +48,8 @@ function(cpp_test SOURCE_NAME)
     add_dependencies(all-tests ${TARGET_NAME}-run)
 endfunction(cpp_test)
 
-
 ##### subdirectories #####
-set(DIRS week-W week-2 week-3 week-4 week-5 week-6 week-7 week-8 week-10)
+set(DIRS week-W week-2 week-3 week-4 week-5 week-6 week-7 week-8 week-9 week-10)
 foreach(DIR ${DIRS})
     add_subdirectory(${DIR})
 endforeach()

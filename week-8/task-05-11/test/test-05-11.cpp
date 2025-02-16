@@ -19,6 +19,9 @@ fs::path create_temp_file(const std::string& content) {
     return temp_path;
 }
 
+#define TURN_OFF_TEMPFILE_TESTS
+
+#ifndef TURN_OFF_TEMPFILE_TESTS
 TEST(TextFromFileTest, ReadsFileSuccessfully) {
     const std::string content = "Hello, world!";
     const fs::path temp_file = create_temp_file(content);
@@ -27,6 +30,7 @@ TEST(TextFromFileTest, ReadsFileSuccessfully) {
     EXPECT_EQ(result, content);
     fs::remove(temp_file);
 }
+#endif
 
 TEST(TextFromFileTest, ThrowsExceptionForNonExistentFile) {
     const fs::path non_existent_file = "non_existent_file.txt";
@@ -38,6 +42,7 @@ TEST(TextFromFileTest, ThrowsExceptionForNonExistentFile) {
         std::invalid_argument);
 }
 
+#ifndef TURN_OFF_TEMPFILE_TESTS
 TEST(TextFromFileTest, HandlesEmptyFile) {
     const fs::path temp_file = create_temp_file("");
     const TextFromFile text(temp_file);
@@ -45,7 +50,9 @@ TEST(TextFromFileTest, HandlesEmptyFile) {
     EXPECT_EQ(result, "");
     fs::remove(temp_file);
 }
+#endif
 
+#ifndef TURN_OFF_TEMPFILE_TESTS
 TEST(TextFromFileTest, ReadsMultilineFile) {
     const std::string content = "First line\nSecond line\nThird line";
     const fs::path temp_file = create_temp_file(content);
@@ -54,6 +61,7 @@ TEST(TextFromFileTest, ReadsMultilineFile) {
     EXPECT_EQ(result, content);
     fs::remove(temp_file);
 }
+#endif
 
 TEST(CapitalizedTextTest, CapitalizedTextFromString) {
     const std::string content = "Hello, world!";
@@ -62,6 +70,7 @@ TEST(CapitalizedTextTest, CapitalizedTextFromString) {
     EXPECT_EQ(result, "HELLO, WORLD!");
 }
 
+#ifndef TURN_OFF_TEMPFILE_TESTS
 TEST(CapitalizedTextTest, CapitalizedTextFromFileText) {
     const std::string content = "Hello, world!";
     const fs::path temp_file = create_temp_file(content);
@@ -70,6 +79,7 @@ TEST(CapitalizedTextTest, CapitalizedTextFromFileText) {
     EXPECT_EQ(result, "HELLO, WORLD!");
     fs::remove(temp_file);
 }
+#endif
 
 TEST(TrimmedTextTest, TrimmedTextFromString) {
     const std::string content = "     \n\t   Hello, world! \t      \n    ";
@@ -78,6 +88,7 @@ TEST(TrimmedTextTest, TrimmedTextFromString) {
     EXPECT_EQ(result, "Hello, world!");
 }
 
+#ifndef TURN_OFF_TEMPFILE_TESTS
 TEST(TrimmedTextTest, TrimmedTextFromFileText) {
     const std::string content = "     \n\t   Hello, world! \t      \n    ";
     const fs::path temp_file = create_temp_file(content);
@@ -86,6 +97,7 @@ TEST(TrimmedTextTest, TrimmedTextFromFileText) {
     EXPECT_EQ(result, "Hello, world!");
     fs::remove(temp_file);
 }
+#endif
 
 TEST(EleganceTest, CapitalizedTrimmedTextFromString) {
     const std::string content = "     \n\t   Hello, world! \t      \n    ";
@@ -94,6 +106,7 @@ TEST(EleganceTest, CapitalizedTrimmedTextFromString) {
     EXPECT_EQ(result, "HELLO, WORLD!");
 }
 
+#ifndef TURN_OFF_TEMPFILE_TESTS
 TEST(EleganceTest, CapitalizedTrimmedTextFromFileText) {
     const std::string content = "     \n\t   Hello, world! \t      \n    ";
     const fs::path temp_file = create_temp_file(content);
@@ -102,6 +115,7 @@ TEST(EleganceTest, CapitalizedTrimmedTextFromFileText) {
     EXPECT_EQ(result, "HELLO, WORLD!");
     fs::remove(temp_file);
 }
+#endif
 
 TEST(EleganceTest, TrimmedCapitalizedTextFromString) {
     const std::string content = "     \n\t   Hello, world! \t      \n    ";
@@ -110,6 +124,7 @@ TEST(EleganceTest, TrimmedCapitalizedTextFromString) {
     EXPECT_EQ(result, "HELLO, WORLD!");
 }
 
+#ifndef TURN_OFF_TEMPFILE_TESTS
 TEST(EleganceTest, TrimmedCapitalizedTextFromFileText) {
     const std::string content = "     \n\t   Hello, world! \t      \n    ";
     const fs::path temp_file = create_temp_file(content);
@@ -118,8 +133,19 @@ TEST(EleganceTest, TrimmedCapitalizedTextFromFileText) {
     EXPECT_EQ(result, "HELLO, WORLD!");
     fs::remove(temp_file);
 }
+#endif
 
-TEST(EleganceTest, DecoratorOfAbstractText) {
+TEST(EleganceTest, DecoratorOfAbstractStringText) {
+    const std::string content = "     \n\t   Hello, world! \t      \n    ";
+    std::unique_ptr<Text> txt1 = std::make_unique<TextFromString>(content);
+    std::unique_ptr<Text> txt2 = std::make_unique<CapitalizedText>(std::move(txt1));
+    const Text& text = TrimmedText{std::move(txt2)};
+    const std::string result = text.content();
+    EXPECT_EQ(result, "HELLO, WORLD!");
+}
+
+#ifndef TURN_OFF_TEMPFILE_TESTS
+TEST(EleganceTest, DecoratorOfAbstractFileText) {
     const std::string content = "     \n\t   Hello, world! \t      \n    ";
     const fs::path temp_file = create_temp_file(content);
     std::unique_ptr<Text> txt1 = std::make_unique<TextFromFile>(temp_file);
@@ -129,3 +155,4 @@ TEST(EleganceTest, DecoratorOfAbstractText) {
     EXPECT_EQ(result, "HELLO, WORLD!");
     fs::remove(temp_file);
 }
+#endif

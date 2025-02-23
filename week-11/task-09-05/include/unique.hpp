@@ -14,12 +14,18 @@ public:
         data_ = other.release();
     }
     Unique(Unique&& other) : Unique() { swap(other); }
+
     template <typename U>
         requires std::convertible_to<U*, T*>
     auto& operator=(Unique<U>&& other) {
         reset(other.release());
         return *this;
     }
+    auto& operator=(Unique&& other) noexcept {
+        reset(other.release());
+        return *this;
+    }
+
     ~Unique() { reset(); }
 
     void swap(Unique& other) { std::swap(data_, other.data_); }

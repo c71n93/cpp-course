@@ -1,0 +1,36 @@
+name: Valgrind Tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_TYPE: DEBUG
+
+jobs:
+  valgrind:
+    strategy:
+      matrix:
+        cxx: [ g++-14, clang++-18 ]
+    env:
+      CXX: ${{ matrix.cxx }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Install Valgrind
+        run: sudo apt update && sudo apt install -y valgrind
+
+      - name: Configure CMake
+        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Run tests under Valgrind
+        working-directory: ${{github.workspace}}/build
+        run: |
+          ctest -V -T memcheck

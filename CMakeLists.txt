@@ -16,6 +16,14 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 
+##### valgrind #####
+## https://stackoverflow.com/questions/19542114/how-to-test-using-cmake-that-a-c-application-has-no-memory-errors
+if (NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)
+    include(CTest)
+endif()
+
+
 ##### clang-tidy #####
 function(clang_tidy EXECUTABLE)
 # possible problems with clang-tidy in CI https://discourse.cmake.org/t/clang-tidy-g-c-standard-command-line-parameter-incompatibilites/8526

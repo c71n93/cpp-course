@@ -5,7 +5,7 @@
 namespace memory {
 
 template <typename T>
-class Unique : private util::NonCopyable {
+class Unique : private share::util::NonCopyable {
 public:
     explicit Unique(T* ptr = nullptr) : data_(ptr) {}
     template <typename U>

@@ -9,7 +9,7 @@
 namespace memory {
 
 namespace detail {
-class Controller : private util::NonCopyable {
+class Controller : private share::util::NonCopyable {
 public:
     void increase() { ++counter_; }
     void decrease() {

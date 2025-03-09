@@ -1,6 +1,6 @@
 #pragma once
 
-namespace util {
+namespace share::util {
 
 class NonCopyable {
 protected:
@@ -11,4 +11,4 @@ public:
     NonCopyable& operator=(const NonCopyable& other) = delete;
 };
 
-}  // namespace util
+}  // namespace share::util

@@ -56,8 +56,13 @@ function(cpp_test SOURCE_NAME)
     add_dependencies(all-tests ${TARGET_NAME}-run)
 endfunction(cpp_test)
 
+
+##### shared library #####
+include_directories(shared)
+
+
 ##### subdirectories #####
-set(DIRS week-W week-2 week-3 week-4 week-5 week-6 week-7 week-8 week-9 week-10)
+set(DIRS week-W week-2 week-3 week-4 week-5 week-6 week-7 week-8 week-9 week-10 week-11)
 foreach(DIR ${DIRS})
     add_subdirectory(${DIR})
 endforeach()

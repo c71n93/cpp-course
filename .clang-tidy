@@ -5,6 +5,7 @@ Checks:     '
     misc-const-correctness,
     -readability-identifier-length,
     -readability-else-after-return,
+    -readability-qualified-auto,
     -readability-math-missing-parentheses
             '
 CheckOptions:

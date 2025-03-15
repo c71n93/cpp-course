@@ -44,6 +44,7 @@ TEST(Factory, CustomTypes) {
     EXPECT_EQ(factory.create<Person>(), person);
 }
 
+// @todo #15:30m/DEV find a way to check if a compilation error has occurred or not.
 #ifdef TEST_COMPILE_ERROR
 TEST(Factory, UnregisteredType) {
     const Factory<int, double> factory{[]() { return 42; }, []() { return 3.14; }};

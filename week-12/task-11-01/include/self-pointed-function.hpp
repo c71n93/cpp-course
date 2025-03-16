@@ -1,13 +1,15 @@
 #pragma once
 
-namespace functions {
-
 #include <iostream>
 
-int function(int x) { return x; }
+namespace functions {
 
-using FunctionPtr = decltype(&function);
-
-FunctionPtr intermediary() { return function; }
+std::function<void(int& p)> do_it(int& param) {
+    param++;
+    static int counter = 1;
+    std::cout << "do it #" << counter << ": param = " << param << std::endl;
+    counter++;
+    return [](int& p) { do_it(p); };
+}
 
 }  // namespace functions

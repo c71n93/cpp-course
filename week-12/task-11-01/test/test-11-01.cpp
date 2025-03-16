@@ -1,11 +1,13 @@
 #include "gtest/gtest.h"
 #include "self-pointed-function.hpp"
 
-using functions::FunctionPtr;
-using functions::intermediary;
+using functions::do_it;
 
 TEST(SelfPointedFunction, Call) {
-    FunctionPtr f = intermediary();
-    constexpr int x = 10;
-    EXPECT_EQ(f(x), x);
+    constexpr int initial = 42;
+    int var = initial;  // NOLINT
+    auto do_it_again = do_it(var);
+    EXPECT_EQ(var, initial + 1);
+    do_it_again(var);
+    EXPECT_EQ(var, initial + 2);
 }

@@ -12,13 +12,13 @@ using geometry2d::Shape;
 using geometry2d::Square;
 using geometry2d::Triangle;
 
-std::string capture_output(const std::function<void()>& printer_func) {
-    const std::ostringstream oss;
-    auto old_cout_buffer = std::cout.rdbuf(oss.rdbuf());
-    printer_func();
-    std::cout.rdbuf(old_cout_buffer);
-    return oss.str();
-}
+#define EXPECT_STDOUT_EQ(printing_statement, expected_output)              \
+    {                                                                      \
+        testing::internal::CaptureStdout();                                \
+        printing_statement;                                                \
+        const std::string output = testing::internal::GetCapturedStdout(); \
+        EXPECT_EQ(output, expected_output);                                \
+    }
 
 TEST(Serializer, ShapeCircle) {
     const Serializer serializer{};
@@ -28,8 +28,7 @@ TEST(Serializer, ShapeCircle) {
         "\tradius: 4\n"
         "\t\tperimeter: 25.1327\n"
         "\t\tarea: 50.2655\n";
-    const std::string output = capture_output([&]() { shape->visit_by(serializer); });
-    EXPECT_EQ(output, expected_output);
+    EXPECT_STDOUT_EQ(shape->visit_by(serializer), expected_output);
 }
 
 TEST(Serializer, ShapeSquare) {
@@ -40,8 +39,7 @@ TEST(Serializer, ShapeSquare) {
         "\tside: 5\n"
         "\t\tperimeter: 20\n"
         "\t\tarea: 25\n";
-    const std::string output = capture_output([&]() { shape->visit_by(serializer); });
-    EXPECT_EQ(output, expected_output);
+    EXPECT_STDOUT_EQ(shape->visit_by(serializer), expected_output);
 }
 
 TEST(Serializer, ShapeTriangle) {
@@ -54,8 +52,7 @@ TEST(Serializer, ShapeTriangle) {
         "\tside3: 5\n"
         "\t\tperimeter: 12\n"
         "\t\tarea: 6\n";
-    const std::string output = capture_output([&]() { shape->visit_by(serializer); });
-    EXPECT_EQ(output, expected_output);
+    EXPECT_STDOUT_EQ(shape->visit_by(serializer), expected_output);
 }
 
 TEST(Serializer, InvalidCircleRadius) { EXPECT_THROW(Circle(-1), std::invalid_argument); }

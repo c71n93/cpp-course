@@ -1,27 +1,41 @@
 #pragma once
 
-#include <stack>
+#include <cassert>
 #include <sstream>
+#include <stack>
 
-bool is_operator(char c) {
+inline bool is_operator(const std::string& str) {
+    if (str.size() != 1) {
+        return false;
+    }
+    const char c = str[0];
     return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
-int calculate(const std::string& str) {
-    std::stack<int> stack;
-    for (auto it = std::cbegin(str); it != std::cend(str);) {
-        if (static_cast<bool>(std::isspace(*it))) {
-            while (it != std::cend(str) && static_cast<bool>(std::isspace(*it))) { ++it; }
-        } else if (static_cast<bool>(std::isdigit(*it))) {
-            std::istringstream iss(std::string(it, std::cend(str)));
-            int val;
-            iss >> val;
-            stack.push(val);
-            std::advance(it, iss.tellg());
-        } else if (is_operator(*it)) {
-            const int b = stack.top(); stack.pop();
-            const int a = stack.top(); stack.pop();
-            switch (*it) {
+inline bool may_be_number(const std::string& str) {
+    return (str[0] == '-' && str.size() > 1) || static_cast<bool>(std::isdigit(str[0]));
+}
+
+double calculate(const std::string& str) {
+    if (str.empty()) {
+        throw std::invalid_argument("empty string");
+    }
+    std::stack<double> stack;
+    std::istringstream iss(str);
+    std::string token;
+    while (iss >> token) {
+        assert(!token.empty());
+        if (may_be_number(token)) {
+            stack.push(std::stod(token));
+        } else if (is_operator(token)) {
+            if (stack.size() < 2) {
+                throw std::invalid_argument("too few arguments for operation");
+            }
+            const double b = stack.top();
+            stack.pop();
+            const double a = stack.top();
+            stack.pop();
+            switch (token[0]) {
                 case '+':
                     stack.push(a + b);
                     break;
@@ -35,11 +49,10 @@ int calculate(const std::string& str) {
                     stack.push(a / b);
                     break;
                 default:
-                    throw std::runtime_error("unexpected operator");
+                    throw std::invalid_argument("unexpected operator");
             }
-            ++it;
         } else {
-            throw std::runtime_error("unexpected symbol");
+            throw std::invalid_argument("unexpected token");
         }
     }
     return stack.top();

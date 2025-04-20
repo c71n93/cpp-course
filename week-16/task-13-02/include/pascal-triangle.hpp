@@ -11,7 +11,10 @@ public:
         if (n_ == 0) {
             return;
         }
-        triangle_ = calculated_ ? triangle_ : calculate(n_);
+        if (!calculated_) {
+            triangle_ = calculate(n_);
+            calculated_ = true;
+        }
         const size_t max_width = num_digits(max_value(triangle_));
         for (int i = 0; i < n_; ++i) {
             out << std::string((n_ - i - 1) * (max_width + 1) / 2, ' ');
@@ -47,6 +50,6 @@ private:
     }
 
     size_t n_;
-    bool calculated_;
+    bool calculated_ = false;
     std::vector<std::vector<int>> triangle_;
 };

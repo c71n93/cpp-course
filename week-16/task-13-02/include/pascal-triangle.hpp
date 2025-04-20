@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iomanip>
-#include <iostream>
 
 class PascalsTriangle {
 public:

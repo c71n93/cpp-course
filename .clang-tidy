@@ -6,7 +6,8 @@ Checks:     '
     -readability-identifier-length,
     -readability-else-after-return,
     -readability-qualified-auto,
-    -readability-math-missing-parentheses
+    -readability-math-missing-parentheses,
+    -readability-magic-numbers
             '
 CheckOptions:
   - key: readability-identifier-naming.NamespaceCase
